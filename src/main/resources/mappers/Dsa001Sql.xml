@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dsa.application.dao.DsaDao">
+	
+
+<select id="selectUserIdCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
+SELECT CASE 
+	   WHEN EXISTS ( SELECT USER_ID
+  					   FROM DSA_001
+                      WHERE USER_ID = #{userId}) = true THEN 'Y' ELSE 'N' 
+                        END AS UID_RESULT
+     , CASE 
+       WHEN EXISTS ( SELECT USER_ID
+    				   FROM DSA_001
+    			      WHERE USER_ID = #{userId} 
+    			        AND USER_PASS = #{userPass}) = true THEN 'Y' ELSE 'N' 
+    			        END AS UPASS_RESULT
+   FROM DSA_001
+</select>
+
+<select id="selectUserIdDuplicationCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
+SELECT CASE 
+  WHEN EXISTS ( SELECT USER_ID 
+  				  FROM DSA_001
+    			 WHERE USER_ID = #{userId} ) = true then 'Y' else 'N'
+    			   END AS UID_RESULT
+  FROM DSA_001	
+</select>
+
+<insert id="insertUserInfo" parameterType="com.dsa.application.dto.UserDto">
+INSERT INTO DSA_001(
+	USER_ID,
+	USER_PASS,
+	USER_NAME,
+	USER_RIGHT,
+	USER_PHONE_NUMBER,
+	USER_YEAR) 
+VALUES(
+	#{userId}
+   ,#{userPass}
+   ,#{userName}
+   ,#{userRight}
+   ,#{userPhoneNumber}
+   ,#{userYear} )
+</insert>
+</mapper>

@@ -1,0 +1,17 @@
+server:
+  port: 8085
+spring:
+  datasource:
+      hikari:
+        jdbc-url: jdbc:postgresql://211.37.147.100:5432/nhjdb
+        username: nhjdba
+        password: 1234
+        driver-class-name: org.postgresql.Driver
+#MyBatis 설정
+#기존 mybatis-confgi.xml 에서 설정하던 옵션을 여기서 설정이 가능하다.
+mybatis:
+  type-aliases-package: com.dsa.application.dto
+  mapper-locations: classpath:**/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+      
