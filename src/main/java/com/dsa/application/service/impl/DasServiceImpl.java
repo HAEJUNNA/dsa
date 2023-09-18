@@ -11,14 +11,16 @@ import com.dsa.application.dto.Message;
 import com.dsa.application.dto.UserDto;
 import com.dsa.application.service.DasService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@RequiredArgsConstructor
 @Service
 public class DasServiceImpl implements DasService{
 	
-	@Autowired
-	DsaDao dsaDao;
+
+	private final DsaDao dsaDao;
 	
 	/**
 	 * selectUserIdCheck
@@ -56,6 +58,18 @@ public class DasServiceImpl implements DasService{
 		return result;
 	}
 	
+	/**
+	 * insertUserInfo
+	 * ================================
+	 * @NAME:나해준   @DAY: 2023. 9. 19.
+	 * ================================
+	 * @param ud
+	 * @return
+	 * @throws Exception
+	 * ================================
+	 * @Method : 회원의 정보를 저장한다.
+	 * @변경이력 :
+	 */
 	public int insertUserInfo(UserDto ud) throws Exception{
 		
 		Map<String,Object> aa = dsaDao.selectUserIdCheck(ud);

@@ -11,17 +11,32 @@ import com.dsa.application.dto.Message;
 import com.dsa.application.dto.UserDto;
 import com.dsa.application.service.DasService;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/main")
 public class MainController {
 		
+	private final DasService dasService;
 	
-	@Autowired
-	DasService dasService;
-	
+	/**
+	 * getDas
+	 * ================================
+	 * @NAME: 나해준   @DAY: 2023. 9. 16.
+	 * ================================
+	 * @param param 
+	 * @return 
+	 * @throws Exception
+	 * ================================
+	 * @Method : 로그인 메서드
+	 * @변경이력 :
+	 */
 	@PostMapping("/login")
-	public ResponseEntity<Message> getDas(@RequestBody UserDto param) throws Exception {
+	public ResponseEntity<Message> getDas(UserDto param) throws Exception {
+		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
 		Message msg = new Message();
 		UserDto ud = new UserDto();
 		ud.setUserId(param.getUserId());
@@ -31,8 +46,20 @@ public class MainController {
 		return new ResponseEntity<Message>(msg,HttpStatus.OK);
 	}
 	
+	/**
+	 * insertUserInfo
+	 * ================================
+	 * @NAME:나해준    @DAY: 2023. 9. 18.
+	 * ================================
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 * ================================
+	 * @Method : 회원가입 메서드
+	 * @변경이력 :
+	 */
 	@PostMapping("/insertUser")
-	public ResponseEntity<Message> insertUserInfo(@RequestBody UserDto param) throws Exception {
+	public ResponseEntity<Message> insertUserInfo(UserDto param) throws Exception {
 		Message msg = new Message();
 		UserDto ud = param;
 		int result = 0;

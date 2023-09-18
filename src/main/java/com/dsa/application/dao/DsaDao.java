@@ -1,22 +1,18 @@
 package com.dsa.application.dao;
 
-import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.dsa.application.dto.UserDto;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.RequiredArgsConstructor;
 
-
-@Log4j2
 @Repository
+@RequiredArgsConstructor
 public class DsaDao {
 	
-	@Autowired
-	private SqlSession sqlSession;
+	private final SqlSession sqlSession;
 
 	
 	/**
@@ -32,8 +28,7 @@ public class DsaDao {
 	 * @변경이력 :
 	 */
 	public Map<String,Object> selectUserIdCheck(UserDto ud) {
-		Map<String,Object> result = sqlSession.selectOne("selectUserIdCheck", ud);
-		return result;
+		return sqlSession.selectOne("selectUserIdCheck", ud);
 	}
 	
 	/**
