@@ -10,6 +10,7 @@ import com.dsa.application.dao.DsaDao;
 import com.dsa.application.dto.Message;
 import com.dsa.application.dto.UserDto;
 import com.dsa.application.service.DasService;
+import com.dsa.application.type.UserRight;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -71,9 +72,12 @@ public class DasServiceImpl implements DasService{
 	 * @변경이력 :
 	 */
 	public int insertUserInfo(UserDto ud) throws Exception{
-		
-		Map<String,Object> aa = dsaDao.selectUserIdCheck(ud);
-		log.debug(aa);
-		return 1;
+		int result = 0;
+		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(ud);
+		if ("N".equals(String.valueOf(chekResult.get("uid_result")))) {
+			ud.setUserRight(UserRight.LEVEL_2);
+			result = dsaDao.insertUserInfo(ud);
+		}
+		return result;
 	}
 }

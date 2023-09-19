@@ -46,4 +46,19 @@ public class DsaDao {
 	public Map<String,Object> selectUserIdDuplicationCheck(UserDto ud) {
 		return sqlSession.selectOne("selectUserIdDuplicationCheck",ud);
 	}
+	
+	/**
+	 * insertUserInfo
+	 * ================================
+	 * @NAME:나해준    @DAY: 2023. 9. 20.
+	 * ================================
+	 * @param ud
+	 * @return
+	 * ================================
+	 * @Method : 유저정보 저장
+	 * @변경이력 :
+	 */
+	public int insertUserInfo(UserDto ud) {
+		return sqlSession.insert("insertUserInfo", ud);
+	}
 }

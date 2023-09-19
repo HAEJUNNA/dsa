@@ -13,8 +13,9 @@ import com.dsa.application.service.DasService;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
-
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/main")
@@ -35,7 +36,7 @@ public class MainController {
 	 * @변경이력 :
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<Message> getDas(UserDto param) throws Exception {
+	public ResponseEntity<Message> getDas(@RequestBody UserDto param) throws Exception {
 		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
 		Message msg = new Message();
 		UserDto ud = new UserDto();
@@ -59,10 +60,18 @@ public class MainController {
 	 * @변경이력 :
 	 */
 	@PostMapping("/insertUser")
-	public ResponseEntity<Message> insertUserInfo(UserDto param) throws Exception {
+	public ResponseEntity<Message> insertUserInfo(@RequestBody UserDto param) throws Exception {
 		Message msg = new Message();
 		UserDto ud = param;
-		int result = 0;
+		log.debug(ud);
+		int result = dasService.insertUserInfo(ud);
+		if (result == 1) {
+			msg.setMessage("회원가입이 완료되었습니다.");
+			msg.setStatus(HttpStatus.OK);
+		} else {
+			msg.setMessage("회원가입이 완료되지 않았습니다.");
+			msg.setStatus(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Message>(msg,HttpStatus.OK);
 	}
 }

@@ -1,5 +1,7 @@
 package com.dsa.application.dto;
 
+import com.dsa.application.type.UserRight;
+
 import lombok.Data;
 
 
@@ -8,7 +10,7 @@ public class UserDto {
 	private String userId;
 	private String userPass;
 	private String userName;
-	private String userRight;
+	private UserRight userRight;
 	private String userPhoneNumber;
 	private String userYear;
 }
