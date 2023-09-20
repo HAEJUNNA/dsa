@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 
 <select id="selectUserIdCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
-SELECT CASE 
+SELECT DISTINCT CASE 
 	   WHEN EXISTS ( SELECT USER_ID
   					   FROM DSA_001
                       WHERE USER_ID = #{userId}) = true THEN 'Y' ELSE 'N' 
