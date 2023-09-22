@@ -2,7 +2,12 @@ server:
   port: 8085
 spring:
   datasource:
-      hikari:
+      hikari: 
+        connection-timeout: 30000
+        validation-timeout: 30000
+        minimum-idle: 5
+        max-lifetime: 240000
+        maximum-pool-size: 20
         jdbc-url: jdbc:postgresql://112.175.18.222:5432/nhjdb
         username: nhjdba
         password: 1234
