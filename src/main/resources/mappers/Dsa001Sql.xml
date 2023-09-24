@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Sql Mapper -->
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dsa.application.dao.DsaDao">
-	
 
+
+<!-- 
+selectUserIdCheck
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID, 비밀번호를 체크한다.
+================================
+@변경이력:
+ -->
 <select id="selectUserIdCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
 SELECT DISTINCT CASE 
 	   WHEN EXISTS ( SELECT USER_ID
@@ -22,6 +27,15 @@ SELECT DISTINCT CASE
    FROM DSA_001
 </select>
 
+<!-- 
+selectUserIdDuplicationCheck
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID를 중복체크한다.
+================================
+@변경이력:
+ -->
 <select id="selectUserIdDuplicationCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
 SELECT CASE 
   WHEN EXISTS ( SELECT USER_ID 
@@ -31,6 +45,30 @@ SELECT CASE
   FROM DSA_001	
 </select>
 
+<!-- 
+selectChekUserInfo
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID로 회원정보를 조회한다.
+================================
+@변경이력:
+ -->
+<select id="selectChekUserInfo" parameterType="com.dsa.application.dto.UserDto" resultType="hashmap">
+SELECT *
+  FROM DSA_001
+ WHERE USER_ID = #{userId}	
+</select>
+
+<!-- 
+insertUserInfo
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원을 등록한다.
+================================
+@변경이력:
+ -->
 <insert id="insertUserInfo" parameterType="com.dsa.application.dto.UserDto">
 INSERT INTO DSA_001(
 	USER_ID,
@@ -47,4 +85,5 @@ VALUES(
    ,#{userPhoneNumber}
    ,#{userYear} )
 </insert>
+
 </mapper>

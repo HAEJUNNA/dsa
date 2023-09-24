@@ -48,6 +48,36 @@ public class MainController {
 	}
 	
 	/**
+	 * selectChekUserInfo
+	 * ================================
+	 * @NAME:나해준    @DAY: 2023. 9. 24.
+	 * ================================
+	 * @param ud
+	 * @return
+	 * ================================
+	 * @Method : 회원 ID로 회원 정보를 조회한다.
+	 * @변경이력 :
+	 */
+//	@PostMapping("/usrCheck")
+//	public ResponseEntity<Message> selectChekUserInfo(@RequestBody Map<String,Object> param) throws Exception {
+//		log.debug(param);
+//		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
+//		Message msg = new Message();
+//		UserDto ud = new UserDto();
+//		ud.setUserId((String)param.get("userId"));
+//		Map<String,Object> result = dasService.selectChekUserInfo(ud);
+//		if (result !=null) {
+//			msg.setData(result);
+//			msg.setStatus(HttpStatus.OK);
+//		} else {
+//			msg.setStatus(HttpStatus.NOT_FOUND);			
+//			msg.setMessage("회원정보가 존재하지 않습니다.");			
+//		}
+//		return new ResponseEntity<Message>(msg,HttpStatus.OK);
+//	}
+	
+	
+	/**
 	 * insertUserInfo
 	 * ================================
 	 * @NAME:나해준    @DAY: 2023. 9. 18.

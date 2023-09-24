@@ -46,6 +46,8 @@ public class DasServiceImpl implements DasService{
 				&& "Y".equals(String.valueOf(temp.get("upass_result")))) {
 			msg = "회원확인이 완료되었습니다";
 			userFlag = "Y";
+			Map<String,Object> userRigth = selectChekUserInfo(ud);
+			result.put("userRigth", userRigth);
 		} else if("Y".equals(String.valueOf(temp.get("uid_result")))
 				&& "N".equals(String.valueOf(temp.get("upass_result")))) {
 			msg = "비밀번호가 일치하지 않습니다.";
@@ -56,6 +58,30 @@ public class DasServiceImpl implements DasService{
 		}
 		result.put("msg", msg);
 		result.put("userFlag", userFlag);
+		return result;
+	}
+	
+	/**
+	 * selectChekUserInfo
+	 * ================================
+	 * @NAME:나해준    @DAY: 2023. 9. 24.
+	 * ================================
+	 * @param ud
+	 * @return
+	 * ================================
+	 * @Method : 회원 ID로 회원 정보를 조회한다.
+	 * @변경이력 :
+	 */
+	private Map<String,Object>  selectChekUserInfo(UserDto ud){
+		Map<String,Object> result = new HashMap<String,Object>();
+		Map<String,Object> tempUd =  dsaDao.selectChekUserInfo(ud);
+		log.debug(tempUd); 
+		if (tempUd !=null) {
+			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUd.get("user_right"))) {
+				result.put("userRight", UserRight.LEVEL_2);
+				result.put("userRightNm", UserRight.LEVEL_2.getUserRight());
+			}
+		}
 		return result;
 	}
 	

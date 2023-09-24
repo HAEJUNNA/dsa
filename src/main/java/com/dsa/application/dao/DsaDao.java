@@ -48,6 +48,21 @@ public class DsaDao {
 	}
 	
 	/**
+	 * selectChekUserInfo
+	 * ================================
+	 * @NAME:나해준    @DAY: 2023. 9. 24.
+	 * ================================
+	 * @param ud
+	 * @return
+	 * ================================
+	 * @Method : 회원 ID로 회원 정보를 조회한다.
+	 * @변경이력 :
+	 */
+	public Map<String,Object> selectChekUserInfo(UserDto ud) {
+		return sqlSession.selectOne("selectChekUserInfo",ud);
+	}
+	
+	/**
 	 * insertUserInfo
 	 * ================================
 	 * @NAME:나해준    @DAY: 2023. 9. 20.
