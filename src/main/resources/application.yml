@@ -2,16 +2,13 @@ server:
   port: 8085
 spring:
   datasource:
-      hikari: 
-        connection-timeout: 30000
-        validation-timeout: 30000
-        minimum-idle: 5
-        max-lifetime: 240000
-        maximum-pool-size: 20
+      hikari:
         jdbc-url: jdbc:postgresql://112.175.18.222:5432/nhjdb
         username: nhjdba
         password: 1234
         driver-class-name: org.postgresql.Driver
+        maximum-pool-size: 20
+        connection-timeout: 30000
 #MyBatis 설정
 #기존 mybatis-confgi.xml 에서 설정하던 옵션을 여기서 설정이 가능하다.
 mybatis:
