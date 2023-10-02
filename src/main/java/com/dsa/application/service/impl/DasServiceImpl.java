@@ -39,6 +39,7 @@ public class DasServiceImpl implements DasService{
 	public Map<String,Object> selectUserIdCheck(UserDto ud) throws Exception {
 		Map <String, Object> temp = dsaDao.selectUserIdCheck(ud);
 		Map<String, Object> result = new HashMap<>();
+		
 		String msg ="";
 		String userFlag ="";
 		log.debug(temp);

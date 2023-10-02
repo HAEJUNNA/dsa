@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
       hikari:
-        jdbc-url: jdbc:postgresql://112.175.18.222:5432/nhjdb
+        jdbc-url: jdbc:postgresql://112.175.18.228:5432/nhjdb
         username: nhjdba
         password: 1234
         driver-class-name: org.postgresql.Driver
@@ -13,9 +13,10 @@ spring:
 #기존 mybatis-confgi.xml 에서 설정하던 옵션을 여기서 설정이 가능하다.
 mybatis:
   # 기본경로는 src/main/resource를 path로 잡고 있기 때문
+  # config를 파일로 관리할때 쓰는 방식
   config-location: classpath:config/Mybatis-config.xml
   mapper-locations: classpath:mappers/**/*.xml
-  type-aliases-package: com.dsa.application.dto
-  configuration:
-    map-underscore-to-camel-case: true
+  # config를 통합적으로 관리할때 쓰는 방식
+#  configuration:
+#    map-underscore-to-camel-case: true
       
