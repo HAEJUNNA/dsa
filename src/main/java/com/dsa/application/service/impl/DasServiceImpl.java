@@ -39,7 +39,7 @@ public class DasServiceImpl implements DasService{
 	@Override 
 	public Map<String,Object> selectUserIdCheck(UserDto ud) throws Exception {
 		Map <String, Object> temp = dsaDao.selectUserIdCheck(ud);
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		String msg ="";
 		String userFlag ="";
@@ -74,14 +74,13 @@ public class DasServiceImpl implements DasService{
 	 * @Method : 회원 ID로 회원 정보를 조회한다.
 	 * @변경이력 :
 	 */
-	private Map<String,Object>  selectChekUserInfo(UserDto ud){
+	public Map<String,Object>  selectChekUserInfo(UserDto ud){
 		Map<String,Object> result = new HashMap<String,Object>();
-		Map<String,Object> tempUd =  dsaDao.selectChekUserInfo(ud);
-		log.debug(tempUd); 
+		Map<String,Object> tempUd = dsaDao.selectChekUserInfo(ud);
 		if (tempUd !=null) {
 			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUd.get("userRight"))) {
 				result.put("userRight", UserRight.LEVEL_2);
-				result.put("userRightNm", UserRight.LEVEL_2.getUserRight());
+				result.put("userRightNm", UserRight.LEVEL_2.getUserRightNm());
 			}
 		}
 		return result;
@@ -101,10 +100,11 @@ public class DasServiceImpl implements DasService{
 	 */
 	public int insertUserInfo(UserDto ud) throws Exception{
 		int result = 0;
-		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(ud);
+		UserDto udClone = new UserDto(ud);
+		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(udClone);
 		if ("N".equals(String.valueOf(chekResult.get("uidResult")))) {
-			ud.setUserRight(UserRight.LEVEL_2);
-			result = dsaDao.insertUserInfo(ud);
+			udClone.setUserRight(UserRight.LEVEL_2);
+			result = dsaDao.insertUserInfo(udClone);
 		}
 		return result;
 	}

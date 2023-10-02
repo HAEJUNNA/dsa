@@ -31,7 +31,7 @@ public interface DasService {
 	 * @Method : 회원 ID로 회원 정보를 조회한다.
 	 * @변경이력 :
 	 */
-//	public Map<String,Object>  selectChekUserInfo(UserDto ud) throws Exception;
+	public Map<String,Object>  selectChekUserInfo(UserDto ud) throws Exception;
 	
 	/**
 	 * insertUser

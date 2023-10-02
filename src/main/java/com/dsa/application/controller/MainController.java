@@ -1,4 +1,5 @@
 package com.dsa.application.controller;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 @RequestMapping("/main")
 public class MainController {
+	// 의존성 주입방식
 	// 생성자 주입방식
 	private final DasService dasService;
 	
@@ -52,9 +54,10 @@ public class MainController {
 	public ResponseEntity<Message> getDas(@RequestBody UserDto param) throws Exception {
 		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
 		Message msg = new Message();
-		UserDto ud = new UserDto();
-		ud.setUserId(param.getUserId());
-		ud.setUserPass(param.getUserPass());
+		UserDto ud = UserDto.builder()
+				.userId(param.getUserId())
+				.userPass(param.getUserPass())
+				.build();
 		Map<String,Object> result = dasService.selectUserIdCheck(ud);
 		msg.setData(result);
 		return new ResponseEntity<Message>(msg,HttpStatus.OK);
@@ -71,23 +74,26 @@ public class MainController {
 	 * @Method : 회원 ID로 회원 정보를 조회한다.
 	 * @변경이력 :
 	 */
-//	@PostMapping("/usrCheck")
-//	public ResponseEntity<Message> selectChekUserInfo(@RequestBody Map<String,Object> param) throws Exception {
-//		log.debug(param);
-//		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
-//		Message msg = new Message();
-//		UserDto ud = new UserDto();
-//		ud.setUserId((String)param.get("userId"));
-//		Map<String,Object> result = dasService.selectChekUserInfo(ud);
-//		if (result !=null) {
-//			msg.setData(result);
-//			msg.setStatus(HttpStatus.OK);
-//		} else {
-//			msg.setStatus(HttpStatus.NOT_FOUND);			
-//			msg.setMessage("회원정보가 존재하지 않습니다.");			
-//		}
-//		return new ResponseEntity<Message>(msg,HttpStatus.OK);
-//	}
+	@PostMapping("/usrCheck")
+	public ResponseEntity<Message> selectChekUserInfo(@RequestBody Map<String,Object> param) throws Exception {
+		Message msg = new Message();
+		UserDto ud = new UserDto();
+		Map<String,Object> result = new HashMap<>();
+		if (null == param) {
+			msg.setStatus(HttpStatus.NOT_FOUND);
+		} else {
+			ud.setUserId((String)param.get("userId"));
+			result = dasService.selectChekUserInfo(ud);
+			if (result !=null) {
+				msg.setData(result);
+				msg.setStatus(HttpStatus.OK);
+			} else {
+				msg.setStatus(HttpStatus.NOT_FOUND);			
+				msg.setMessage("회원정보가 존재하지 않습니다.");			
+			}			
+		}
+		return new ResponseEntity<Message>(msg,HttpStatus.OK);
+	}
 	
 	
 	/**
