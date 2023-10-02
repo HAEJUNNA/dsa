@@ -4,8 +4,6 @@
 package com.dsa.application.dto;
 
 import java.util.HashMap;
-
-import org.checkerframework.common.util.report.qual.ReportOverride;
 import org.springframework.jdbc.support.JdbcUtils;
 
 /**
@@ -23,7 +21,7 @@ public class CamelMap extends HashMap{
 //	private static final long serialVersionUID = -7700790403928325865L;
 
 	@SuppressWarnings("unchecked")
-	@ReportOverride
+	@Override
 	public Object put(Object key, Object value) {
 		return super.put(JdbcUtils.convertUnderscoreNameToPropertyName((String)key), value);
 		
