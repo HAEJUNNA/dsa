@@ -3,6 +3,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +16,25 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+//@Controller 스프링 컨테이너가 처음에 뜰때 해당 어노테이션으로 명명한 
+// 컨트롤러 객체를 만들어서 컨테이너에 넣어서 스프링이 알아서 관리
+// 원래는 @Compnent 스캔으로 의존성 주입하는것이다. 
+// @Autowired는 스프링 컨테이너에 올라가있는 객체들의 연관관계를 매핑해주는 역할(의존성주입)
 @Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/main")
 public class MainController {
-		
+	// 생성자 주입방식
 	private final DasService dasService;
+	
+// 생성자 주입방식 (수동)
+//	private DasService dasService;
+//	
+//	@Autowired
+//	public MainController(DasService dasService) {
+//		this.dasService = dasService;
+//	};
 	
 	/**
 	 * getDas

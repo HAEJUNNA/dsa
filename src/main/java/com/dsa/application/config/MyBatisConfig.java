@@ -18,12 +18,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
  */
-@Slf4j
 @Configuration
 public class MyBatisConfig {
 	// applcation.yml 에서 정의한 마이바티스 메퍼 주소를 가져온다.

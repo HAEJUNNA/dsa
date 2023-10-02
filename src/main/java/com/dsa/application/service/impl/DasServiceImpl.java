@@ -17,7 +17,8 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RequiredArgsConstructor
-@Service
+// 해당 서비스 어노테이션을 명시해줘야지만 스프링컨테이너에 등록이되서 컨트롤러에서 의존성주입이 가능하다.
+@Service 
 public class DasServiceImpl implements DasService{
 	
 
@@ -43,14 +44,14 @@ public class DasServiceImpl implements DasService{
 		String msg ="";
 		String userFlag ="";
 		log.debug(temp);
-		if ("Y".equals(String.valueOf(temp.get("uid_result")))
-				&& "Y".equals(String.valueOf(temp.get("upass_result")))) {
+		if ("Y".equals(String.valueOf(temp.get("uidResult")))
+				&& "Y".equals(String.valueOf(temp.get("upassResult")))) {
 			msg = "회원확인이 완료되었습니다";
 			userFlag = "Y";
 			Map<String,Object> userRigth = selectChekUserInfo(ud);
 			result.put("userRigth", userRigth);
-		} else if("Y".equals(String.valueOf(temp.get("uid_result")))
-				&& "N".equals(String.valueOf(temp.get("upass_result")))) {
+		} else if("Y".equals(String.valueOf(temp.get("uidResult")))
+				&& "N".equals(String.valueOf(temp.get("upassResult")))) {
 			msg = "비밀번호가 일치하지 않습니다.";
 			userFlag = "N";
 		} else {
@@ -78,7 +79,7 @@ public class DasServiceImpl implements DasService{
 		Map<String,Object> tempUd =  dsaDao.selectChekUserInfo(ud);
 		log.debug(tempUd); 
 		if (tempUd !=null) {
-			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUd.get("user_right"))) {
+			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUd.get("userRight"))) {
 				result.put("userRight", UserRight.LEVEL_2);
 				result.put("userRightNm", UserRight.LEVEL_2.getUserRight());
 			}
@@ -101,7 +102,7 @@ public class DasServiceImpl implements DasService{
 	public int insertUserInfo(UserDto ud) throws Exception{
 		int result = 0;
 		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(ud);
-		if ("N".equals(String.valueOf(chekResult.get("uid_result")))) {
+		if ("N".equals(String.valueOf(chekResult.get("uidResult")))) {
 			ud.setUserRight(UserRight.LEVEL_2);
 			result = dsaDao.insertUserInfo(ud);
 		}
