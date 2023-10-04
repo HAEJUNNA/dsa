@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dsa.application.dao.DsaDao">
 
-
 <!-- 
 selectUserIdCheck
 ================================
@@ -26,7 +25,6 @@ SELECT DISTINCT CASE
     			        END AS UPASS_RESULT
    FROM DSA_001
 </select>
-
 <!-- 
 selectUserIdDuplicationCheck
 ================================
@@ -44,7 +42,6 @@ SELECT CASE
     			   END AS UID_RESULT
   FROM DSA_001	
 </select>
-
 <!-- 
 selectChekUserInfo
 ================================
@@ -59,7 +56,6 @@ SELECT *
   FROM DSA_001
  WHERE USER_ID = #{userId}	
 </select>
-
 <!-- 
 insertUserInfo
 ================================
@@ -86,4 +82,98 @@ VALUES(
    ,#{userYear} )
 </insert>
 
+<!-- ################################################################## -->
+<!-- ################################################################## -->
+<!-- 자동방식 -->
+<!-- ################################################################## -->
+<!-- ################################################################## -->
+<!-- ################################################################## -->
+<!-- 
+selectUserIdCheck
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID, 비밀번호를 체크한다.
+================================
+@변경이력:
+ -->
+ <!--
+<select id="selectUserIdCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashMap">
+SELECT DISTINCT CASE 
+	   WHEN EXISTS ( SELECT USER_ID
+  					   FROM DSA_001
+                      WHERE USER_ID = #{userId}) = true THEN 'Y' ELSE 'N' 
+                        END AS UID_RESULT
+     , CASE 
+       WHEN EXISTS ( SELECT USER_ID
+    				   FROM DSA_001
+    			      WHERE USER_ID = #{userId} 
+    			        AND USER_PASS = #{userPass}) = true THEN 'Y' ELSE 'N' 
+    			        END AS UPASS_RESULT
+   FROM DSA_001
+</select>
+ -->
+
+<!-- 
+selectUserIdDuplicationCheck
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID를 중복체크한다.
+================================
+@변경이력:
+ -->
+ <!--
+<select id="selectUserIdDuplicationCheck" parameterType="com.dsa.application.dto.UserDto" resultType="hashMap">
+SELECT CASE 
+  WHEN EXISTS ( SELECT USER_ID 
+  				  FROM DSA_001
+    			 WHERE USER_ID = #{userId} ) = true then 'Y' else 'N'
+    			   END AS UID_RESULT
+  FROM DSA_001	
+</select>
+ -->
+<!-- 
+selectChekUserInfo
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원ID로 회원정보를 조회한다.
+================================
+@변경이력:
+ -->
+ <!--
+<select id="selectChekUserInfo" parameterType="com.dsa.application.dto.UserDto" resultType="hashMap">
+SELECT *
+  FROM DSA_001
+ WHERE USER_ID = #{userId}	
+</select>
+ -->
+<!-- 
+insertUserInfo
+================================
+@NAME:나해준    @DAY: 2023. 8. 27.
+================================
+@Sql: 회원을 등록한다.
+================================
+@변경이력:
+ -->
+ <!--
+<insert id="insertUserInfo" parameterType="com.dsa.application.dto.UserDto">
+INSERT INTO DSA_001(
+	USER_ID,
+	USER_PASS,
+	USER_NAME,
+	USER_RIGHT,
+	USER_PHONE_NUMBER,
+	USER_YEAR) 
+VALUES(
+	#{userId}
+   ,#{userPass}
+   ,#{userName}
+   ,#{userRight}
+   ,#{userPhoneNumber}
+   ,#{userYear} )
+</insert>
+ -->
 </mapper>

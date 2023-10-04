@@ -68,6 +68,7 @@ public class MyBatisConfig {
 //	return new org.apache.ibatis.session.Configuration();
 //	}
 	
+	// sqlTemplate 설정
 	@Bean
     public SqlSessionTemplate sqlSessionTemplate(@Autowired SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);

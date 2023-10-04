@@ -2,8 +2,15 @@ server:
   port: 8085
 spring:
   datasource:
+# DB를 application.yamnl에서 통합(자동,1개만사용시)으로 관리할떄 사용
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://211.42.156.67:5432/nhjdb
+#    username: nhjdba
+#    password: 1234
+# -------------------------------
+# DB를 여러개를 사용해서 따로 수동으로 관리할때사용 (@Configration으로 java파일로 따로 관리해야함)
       hikari:
-        jdbc-url: jdbc:postgresql://112.175.18.228:5432/nhjdb
+        jdbc-url: jdbc:postgresql://211.42.156.67:5432/nhjdb
         username: nhjdba
         password: 1234
         driver-class-name: org.postgresql.Driver

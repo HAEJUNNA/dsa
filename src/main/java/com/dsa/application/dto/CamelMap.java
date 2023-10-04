@@ -18,6 +18,7 @@ public class CamelMap extends HashMap{
 	// 자바 직렬화
 	// 자바 스펙에 따르면 serialVersionUID 가 선언되어있지 않을 경우 default로 값을 만들어준다고 한다.
 	// 하지만 이 값은 컴파일러의 구현에 따라 달라질 수 있기 때문에 역직렬화 시 예기치 못하게 실패할 수도 있다고 한다.
+	// 아직이해못함... 직렬화..대체 뭔대.... 쓰벙
 //	private static final long serialVersionUID = -7700790403928325865L;
 
 	@SuppressWarnings("unchecked")
