@@ -61,7 +61,7 @@ public class MyBatisConfig {
 		return factoryBean.getObject();
 	}
 	
-// config파일 없이 application.yml에 있는 prefix 매핑시켜 application.yml에서 설정한 모든 config설정을 주입시키는 방식	
+// config파일 없이 application.yml에 있는 prefix 매핑시켜 application.ymㅉ에서 마이바티스에 config에 설정한 모든설정을 주입시키는 방식	
 //	@Bean
 //	@ConfigurationProperties(prefix = "mybatis.configuration")
 //	public org.apache.ibatis.session.Configuration mybatisConfg() {
