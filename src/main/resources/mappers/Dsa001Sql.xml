@@ -65,7 +65,7 @@ insertUserInfo
 ================================
 @변경이력:
  -->
-<insert id="insertUserInfo" parameterType="userDto">
+<insert id="insertUserInfo" parameterType="user">
 INSERT INTO DSA_001(
 	USER_ID,
 	USER_PASS,

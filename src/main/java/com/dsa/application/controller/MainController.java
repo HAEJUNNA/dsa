@@ -1,19 +1,19 @@
 package com.dsa.application.controller;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.dsa.application.dto.Message;
 import com.dsa.application.dto.UserDto;
+import com.dsa.application.entity.User;
 import com.dsa.application.service.DasService;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -51,14 +51,14 @@ public class MainController {
 	 * @변경이력 :
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<Message> getDas(@RequestBody UserDto param) throws Exception {
+	public ResponseEntity<Message> getDas(@RequestBody User param) throws Exception {
 		if (null == param) throw new Exception("파라미터가 존재하지 않습니다.");
 		Message msg = new Message();
-		UserDto ud = UserDto.builder()
+		User user = User.builder()
 				.userId(param.getUserId())
 				.userPass(param.getUserPass())
 				.build();
-		Map<String,Object> result = dasService.selectUserIdCheck(ud);
+		Map<String,Object> result = dasService.selectUserIdCheck(user);
 		msg.setData(result);
 		return new ResponseEntity<Message>(msg,HttpStatus.OK);
 	}
@@ -109,11 +109,11 @@ public class MainController {
 	 * @변경이력 :
 	 */
 	@PostMapping("/insertUser")
-	public ResponseEntity<Message> insertUserInfo(@RequestBody UserDto param) throws Exception {
+	public ResponseEntity<Message> insertUserInfo(@RequestBody User user) throws Exception {
 		Message msg = new Message();
-		UserDto ud = param;
+		User ud = user;
 		log.debug(ud);
-		int result = dasService.insertUserInfo(ud);
+		int result = dasService.insertUserInfo(user);
 		if (result == 1) {
 			msg.setMessage("회원가입이 완료되었습니다.");
 			msg.setStatus(HttpStatus.OK);

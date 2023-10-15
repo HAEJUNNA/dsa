@@ -3,12 +3,11 @@ package com.dsa.application.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsa.application.dao.DsaDao;
-import com.dsa.application.dto.Message;
 import com.dsa.application.dto.UserDto;
+import com.dsa.application.entity.User;
 import com.dsa.application.service.DasService;
 import com.dsa.application.type.UserRight;
 
@@ -37,19 +36,20 @@ public class DasServiceImpl implements DasService{
 	 * @변경이력 :
 	 */
 	@Override 
-	public Map<String,Object> selectUserIdCheck(UserDto ud) throws Exception {
-		Map <String, Object> temp = dsaDao.selectUserIdCheck(ud);
+	public Map<String,Object> selectUserIdCheck(User user) throws Exception {
+		Map <String, Object> temp = dsaDao.selectUserIdCheck(user);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		String msg ="";
 		String userFlag ="";
-		log.debug(temp);
 		if ("Y".equals(String.valueOf(temp.get("uidResult")))
 				&& "Y".equals(String.valueOf(temp.get("upassResult")))) {
 			msg = "회원확인이 완료되었습니다";
 			userFlag = "Y";
-			Map<String,Object> userRigth = selectChekUserInfo(ud);
-			result.put("userRigth", userRigth);
+			UserDto userInfo = UserDto.fromUserInfo(user); 
+			Map<String,Object> userRigth = selectChekUserInfo(userInfo);
+			result.put("userRigth", userRigth.get("userRight"));
+			result.put("userRightNm", userRigth.get("userRightNm"));
 		} else if("Y".equals(String.valueOf(temp.get("uidResult")))
 				&& "N".equals(String.valueOf(temp.get("upassResult")))) {
 			msg = "비밀번호가 일치하지 않습니다.";
@@ -74,11 +74,11 @@ public class DasServiceImpl implements DasService{
 	 * @Method : 회원 ID로 회원 정보를 조회한다.
 	 * @변경이력 :
 	 */
-	public Map<String,Object>  selectChekUserInfo(UserDto ud){
+	public Map<String,Object> selectChekUserInfo(UserDto user){
 		Map<String,Object> result = new HashMap<String,Object>();
-		Map<String,Object> tempUd = dsaDao.selectChekUserInfo(ud);
-		if (tempUd !=null) {
-			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUd.get("userRight"))) {
+		Map<String,Object> tempUserInfo = dsaDao.selectChekUserInfo(user);
+		if (tempUserInfo !=null) {
+			if (String.valueOf(UserRight.LEVEL_2).equals((String)tempUserInfo.get("userRight"))) {
 				result.put("userRight", UserRight.LEVEL_2);
 				result.put("userRightNm", UserRight.LEVEL_2.getUserRightNm());
 			}
@@ -98,13 +98,13 @@ public class DasServiceImpl implements DasService{
 	 * @Method : 회원의 정보를 저장한다.
 	 * @변경이력 :
 	 */
-	public int insertUserInfo(UserDto ud) throws Exception{
+	public int insertUserInfo(User user) throws Exception{
 		int result = 0;
-		UserDto udClone = new UserDto(ud);
-		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(udClone);
+		User userClone = new User(user);
+		Map<String,Object> chekResult = dsaDao.selectUserIdCheck(userClone);
 		if ("N".equals(String.valueOf(chekResult.get("uidResult")))) {
-			udClone.setUserRight(UserRight.LEVEL_2);
-			result = dsaDao.insertUserInfo(udClone);
+			userClone.setUserRight(UserRight.LEVEL_2);
+			result = dsaDao.insertUserInfo(userClone);
 		}
 		return result;
 	}

@@ -8,5 +8,6 @@
 	<typeAliases>
 		<typeAlias type="com.dsa.application.dto.UserDto" alias="userDto" />
 		<typeAlias type="com.dsa.application.dto.CamelMap" alias="camelMap" />
+		<typeAlias type="com.dsa.application.entity.User" alias="user" />
 	</typeAliases>
 </configuration>

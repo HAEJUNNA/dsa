@@ -1,10 +1,12 @@
 package com.dsa.application.dao;
 
 import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.dsa.application.dto.UserDto;
+import com.dsa.application.entity.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +29,7 @@ public class DsaDao {
 	 * @Method : 사용자 id ,비밀번호를 체크
 	 * @변경이력 :
 	 */
-	public Map<String,Object> selectUserIdCheck(UserDto ud) {
+	public Map<String,Object> selectUserIdCheck(User ud) {
 		return sqlSession.selectOne("selectUserIdCheck", ud);
 	}
 	
@@ -58,8 +60,8 @@ public class DsaDao {
 	 * @Method : 회원 ID로 회원 정보를 조회한다.
 	 * @변경이력 :
 	 */
-	public Map<String,Object> selectChekUserInfo(UserDto ud) {
-		return sqlSession.selectOne("selectChekUserInfo",ud);
+	public Map<String,Object> selectChekUserInfo(UserDto user) {
+		return sqlSession.selectOne("selectChekUserInfo",user);
 	}
 	
 	/**
@@ -73,7 +75,7 @@ public class DsaDao {
 	 * @Method : 유저정보 저장
 	 * @변경이력 :
 	 */
-	public int insertUserInfo(UserDto ud) {
-		return sqlSession.insert("insertUserInfo", ud);
+	public int insertUserInfo(User user) {
+		return sqlSession.insert("insertUserInfo", user);
 	}
 }

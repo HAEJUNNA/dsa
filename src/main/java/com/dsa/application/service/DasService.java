@@ -3,6 +3,7 @@ package com.dsa.application.service;
 import java.util.Map;
 
 import com.dsa.application.dto.UserDto;
+import com.dsa.application.entity.User;
 
 public interface DasService {
 	
@@ -18,7 +19,7 @@ public interface DasService {
 	 * @Method : 등록된 회원인지 체크한다.
 	 * @변경이력 :
 	 */
-	public Map<String,Object> selectUserIdCheck(UserDto ud) throws Exception;
+	public Map<String,Object> selectUserIdCheck(User ud) throws Exception;
 	
 	/**
 	 * selectChekUserInfo
@@ -45,5 +46,5 @@ public interface DasService {
 	 * @Method : 회원정보를 입력받아 회원정보를 등록한다.
 	 * @변경이력 :
 	 */
-	public int insertUserInfo(UserDto ud)throws Exception;
+	public int insertUserInfo(User ud)throws Exception;
 }
